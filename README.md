@@ -2,6 +2,8 @@
 
 > The front-end of owl-team
 
+## 每次开发前记得git pull 一下master分支的代码看看有没有更新咯~
+
 ## Build Setup
 
 ``` bash
