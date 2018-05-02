@@ -2,8 +2,6 @@
 
 > The front-end of owl-team
 
-## 每次开发前记得git pull 一下master分支的代码看看有没有更新咯~
-
 ## Build Setup
 
 ``` bash
@@ -16,6 +14,9 @@ npm run dev
 # build for production with minification
 npm run build
 ```
+
+## 开发流程
+各自在自己的分支里写代码吧，分支的名称很直观能看出是谁的分支2333，在自己的分支里写完一部分后，如果觉得没什么问题就可以把内容合并到master分支上；然后每次开发前git pull一下master分支的代码确认有没有更新再继续咯~
 
 ## 文件组织
 1.各个页面放在pages文件夹下，入口文件统一命名为index.vue;如果页面下有子页面的话，在各个页面的目录中，添加childrens目录放置子页面。
