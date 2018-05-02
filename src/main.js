@@ -3,6 +3,8 @@
 import Vue from 'vue';
 import App from './App';
 import router from './router';
+import '@/style/reset';
+import '@/style/common';
 
 Vue.config.productionTip = false;
 

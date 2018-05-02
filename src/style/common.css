@@ -1,0 +1,21 @@
+html, body {
+  font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif;
+  min-height: 100%;
+  font-size: 13px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.vertical-stretch {
+  height: 100%;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
