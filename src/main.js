@@ -5,6 +5,7 @@ import App from './App';
 import router from './router';
 import '@/style/reset';
 import '@/style/common';
+import 'iview/dist/styles/iview.css';
 
 Vue.config.productionTip = false;
 

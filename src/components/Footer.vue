@@ -11,9 +11,8 @@ export default {};
 <style scoped>
 .footer {
   height: 90px;
+  margin-top: -90px;
   background-color: rgb(204, 51, 51);
-  position: absolute;
-  bottom: 0;
   width: 100%;
   line-height: 90px;
   color: #fff;

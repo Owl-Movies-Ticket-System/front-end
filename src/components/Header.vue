@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="left header-button vertical-stretch">
-      <img class="header-icon" src="../assets/city_search.png" />
+      <img class="header-icon img-center" src="../assets/city_search.png" />
       <select class="header-input"></select>
     </div>
     <router-link tag="div" to="/home" class="left header-button page-link vertical-stretch pointer">首页</router-link>
@@ -9,7 +9,7 @@
     <router-link tag="div" to="/cinema" class="left header-button page-link vertical-stretch pointer">影院</router-link>
     <router-link tag="div" to="/login" class="right header-button page-link vertical-stretch pointer">登录/注册</router-link>
     <div class="right header-button vertical-stretch pointer">
-      <img class="header-icon" src="../assets/search.png" />
+      <img class="header-icon img-center" src="../assets/search.png" />
       <input type="text" class="header-input" />
     </div>
     <div class="header-button owl pointer">OWL</div>
@@ -25,6 +25,7 @@ export default {};
   background-color: rgb(204, 51, 51);
   height: 65px;
   font-size: 16px;
+  margin-bottom: -65px;
   color: #fff;
 }
 
@@ -44,11 +45,11 @@ export default {};
 .header-icon {
   width: 15px;
   height: auto;
-  vertical-align: middle;
 }
 
 .header-input {
   width: 70px;
+  height: 25px;
 }
 
 .page-link:hover {

@@ -19,3 +19,25 @@ html, body {
 .right {
   float: right;
 }
+
+.horizontal-stretch-img {
+  width: 100%;
+  height: auto;
+}
+
+.vertical-stretch-img {
+  height: 100%;
+  width: auto;
+}
+
+.img-center {
+  vertical-align: middle;
+}
+
+.block-center {
+  margin: 0 auto;
+}
+
+.flex-container {
+  display: flex;
+}
