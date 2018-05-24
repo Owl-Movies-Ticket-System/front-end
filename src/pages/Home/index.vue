@@ -23,7 +23,7 @@
       <div class="film-list">
         <div class="film-header">
           正在热映
-          <div class="right all pointer" @click="/*跳转到所有电影的页面*/">
+          <div class="right all pointer" @click="$router.push('/films')">
             全部<img style="margin-left: 3px;" class="vertical-stretch-img img-center" src="@/assets/arrow.png" />
           </div>
         </div>
@@ -37,7 +37,7 @@
         </ul>
         <div class="film-header">
           即将上映
-          <div class="right all pointer" @click="/*跳转到所有电影的页面*/">
+          <div class="right all pointer" @click="$router.push('/films')">
             全部<img style="margin-left: 3px;" class="vertical-stretch-img img-center" src="@/assets/arrow.png" />
           </div>
         </div>

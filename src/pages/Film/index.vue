@@ -4,16 +4,16 @@
     <button v-on:click="released=false">即将上映</button>
     <div class="film-list">
       <ul class="films flex-container">
-        <film-item v-if="released" 
-          v-for="(item,index) in released_list" :key="index">
+        <film-item v-if="released"
+          v-for="(item,index) in released_list" :key="index"
           :imgSrc="item.src"
-          :active="false"
+          :active="true"
           :imgName="item.name">
         </film-item>
       </ul>
       <ul class="films flex-container">
-        <film-item v-if="!released" 
-          v-for="(item,index) in toBeReleased_list" :key="index">
+        <film-item v-if="!released"
+          v-for="(item,index) in toBeReleased_list" :key="index"
           :imgSrc="item.src"
           :active="false"
           :imgName="item.name">
@@ -26,12 +26,12 @@
 <script>
 import FilmItem from '@/components/FilmItem';
 export default {
-  components:{
-      FilmItem
+  components: {
+    FilmItem
   },
-  data(){
-      return {
-      active_list: [
+  data () {
+    return {
+      released_list: [
         {
           src: require('@/assets/Hugo.png'),
           name: '雨果'
@@ -41,7 +41,7 @@ export default {
           name: '雷神'
         }
       ],
-      inactive_list: [
+      toBeReleased_list: [
         {
           src: require('@/assets/Hugo.png'),
           name: '雨果'
@@ -50,12 +50,11 @@ export default {
           src: require('@/assets/Thor.png'),
           name: '雷神'
         }
-        
-      ]
+      ],
+      released: true
     };
-  },
-
-}
+  }
+};
 </script>
 <style scoped>
 .film-list {
