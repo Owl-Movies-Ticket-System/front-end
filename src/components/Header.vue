@@ -4,7 +4,7 @@
       <img class="header-icon img-center" src="../assets/city_search.png" />
       <select class="header-input"></select>
     </div>
-    <router-link tag="div" to="/home" class="left header-button page-link vertical-stretch pointer">首页</router-link>
+    <router-link tag="div" to="/" class="left header-button page-link vertical-stretch pointer">首页</router-link>
     <router-link tag="div" to="/films" class="left header-button page-link vertical-stretch pointer">电影</router-link>
     <router-link tag="div" to="/cinema" class="left header-button page-link vertical-stretch pointer">影院</router-link>
     <router-link tag="div" to="/login" class="right header-button page-link vertical-stretch pointer">登录/注册</router-link>

@@ -23,10 +23,11 @@ export default {
   font-family: 'Microsoft YaHei', 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  min-height: 100%;
+  height: 100%;
 }
 
 #app-body {
   padding: 65px 0 90px 0;
+  min-height: 100%;
 }
 </style>
