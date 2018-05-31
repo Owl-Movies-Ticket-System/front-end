@@ -1,7 +1,7 @@
 <template>
   <li class="film-item">
     <div class="poster block-center">
-      <img class="poster-img" :src="imgSrc" />
+      <img class="poster-img pointer" :src="imgSrc" @click.stop="clickPoster"/>
     </div>
     <my-button class="block-center" :inactive="!active" @process-click="onClick"></my-button>
   </li>
@@ -34,6 +34,9 @@ export default {
       } else {
         // 查看详情
       }
+    },
+    clickPoster () {
+      this.$router.push('/film-info');
     }
   }
 };

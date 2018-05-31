@@ -4,10 +4,15 @@ import Vue from 'vue';
 import App from './App';
 import router from './router';
 import '@/style/reset';
-import '@/style/common';
 import 'iview/dist/styles/iview.css';
+import '@/style/common';
+import axios from 'axios';
 
 Vue.config.productionTip = false;
+
+Vue.prototype.$http = axios.create({
+  timeout: 1000
+});
 
 /* eslint-disable no-new */
 new Vue({

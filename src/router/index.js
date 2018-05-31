@@ -1,13 +1,15 @@
 import Vue from 'vue';
-import Router from 'vue-router';
+import VueRouter from 'vue-router';
 
-Vue.use(Router);
+Vue.use(VueRouter);
 
 const homePage = (resolve) => require(['../pages/Home'], resolve);
 
 const filmsPage = (resolve) => require(['../pages/Film'], resolve);
 
-export default new Router({
+const filmInfoPage = (resolve) => require(['../pages/FilmInfo'], resolve);
+
+export default new VueRouter({
   routes: [
     {
       path: '/',
@@ -16,6 +18,13 @@ export default new Router({
     {
       path: '/films',
       component: filmsPage
+    },
+    {
+      path: '/film-info',
+      component: filmInfoPage
     }
-  ]
+  ],
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 };
+  }
 });

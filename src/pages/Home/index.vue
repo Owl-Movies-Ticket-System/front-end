@@ -107,6 +107,7 @@ export default {
   methods: {
     box_office_click (film) {
       // 点击票房排行中的电影项
+      this.$router.push('/film-info');
     }
   }
 };
