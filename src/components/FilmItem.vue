@@ -36,7 +36,7 @@ export default {
       }
     },
     clickPoster () {
-      this.$router.push('/film-info');
+      this.$router.push(`/film-info/${this.imgName}`);
     }
   }
 };

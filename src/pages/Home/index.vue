@@ -69,45 +69,45 @@ export default {
       active_list: [
         {
           src: require('@/assets/Hugo.png'),
-          name: '雨果'
+          name: 'Hugo'
         },
         {
           src: require('@/assets/Thor.png'),
-          name: '雷神'
+          name: 'Thor'
         },
         {
           src: require('@/assets/Warcraft.png'),
-          name: '魔兽争霸'
+          name: 'Warcraft'
         },
         {
           src: require('@/assets/Penguins.png'),
-          name: '帝企鹅日记'
+          name: 'march-of-the-penguins'
         }
       ],
       inactive_list: [
         {
           src: require('@/assets/Hugo.png'),
-          name: '雨果'
+          name: 'Hugo'
         },
         {
           src: require('@/assets/Thor.png'),
-          name: '雷神'
+          name: 'Thor'
         },
         {
           src: require('@/assets/Warcraft.png'),
-          name: '魔兽争霸'
+          name: 'Warcraft'
         },
         {
           src: require('@/assets/Penguins.png'),
-          name: '帝企鹅日记'
+          name: 'march-of-the-penguins'
         }
       ]
     };
   },
   methods: {
-    box_office_click (film) {
+    box_office_click (filmname) {
       // 点击票房排行中的电影项
-      this.$router.push('/film-info');
+      this.$router.push(`/film-info/${filmname}`);
     }
   }
 };
