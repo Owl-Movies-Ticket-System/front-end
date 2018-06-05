@@ -20,7 +20,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 #frame_img{
   height: 600px;
   width:500px;
