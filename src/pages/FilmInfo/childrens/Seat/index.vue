@@ -69,7 +69,7 @@ export default {
       seatIndex.splice(1, 1, col);
     },
     buyTicket () {
-      //买票
+      // 买票
     }
   }
 };

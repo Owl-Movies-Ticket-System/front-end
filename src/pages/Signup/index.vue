@@ -7,25 +7,24 @@
         <img id="avatar_img" class="img " src="@/assets/login_page/login_avatar.png" alt="circle">
       </div>
       <div id="input_list" class="input">
-          <input class="input username" type="text" name="username" placeholder="用户名/邮箱/手机号">
+          <input class="input cellphone" type="text" name="cellphone" placeholder="手机号">
+          <input class="input username" type="text" name="username" placeholder="用户名">
           <input class="input password" type="passeword" name="password" placeholder="密码">
-          <input id="login" class="btn " type="submit" value="登陆">
+          <input class="input confirmedPassword" type="passeword" name="confirmedPassword" placeholder="确认密码">
+          <input class="input confirmNumber" type="number" name="confirmedNumber" placeholder="验证码">
+          <input id="register" class="btn " type="submit" value="注册">
       </div>
-      <router-link id="register" to="/signup" >立即注册</router-link>
+      <button id="confirmNumberBtn" class="btn ">获取验证码</button>
+      <router-link id="login" to="/login">立即登陆</router-link>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  data () {
-    return {
-
-    };
-  }
-};
-</script>
 <style>
+#frame_img{
+  height: 600px;
+  width:500px;
+}
 #frame{
   position: absolute;
   left: 22%;
@@ -33,8 +32,8 @@ export default {
 }
 #circle{
   position: absolute;
-    left: 44%;
-    top: 8%;
+  left: 42%;
+  top: 8%;
 }
 #avatar_img{
   position: absolute;
@@ -73,11 +72,14 @@ export default {
   background-color: #E87C78
 }
 
-#register{
+#login{
   position: absolute;
     left: 396px;
-    top: 293px;
+    top: 78%;
     color: #E87C78
+}
+.cellphone{
+    top: -126%;
 }
 .input{
   position: absolute;
@@ -95,5 +97,24 @@ export default {
 }
 .password{
   top:130%;
+}
+#register{
+    position: relative;
+    top: 550%;
+}
+.confirmedPassword{
+    top: 260%;
+}
+.confirmNumber{
+    top: 390%;
+}
+.cellphone{
+  top:-53px;
+}
+#confirmNumberBtn{
+    position: absolute;
+    left: 63%;
+    top: 65.6%;
+    width: 73px;
 }
 </style>
