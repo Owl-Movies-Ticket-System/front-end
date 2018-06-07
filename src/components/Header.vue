@@ -16,10 +16,6 @@
   </div>
 </template>
 
-<script>
-export default {};
-</script>
-
 <style scoped>
 .header {
   background-color: rgb(204, 51, 51);

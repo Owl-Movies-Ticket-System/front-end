@@ -21,8 +21,12 @@
 </template>
 
 <style scoped>
+.login {
+  position: relative;
+}
+
 #frame_img{
-  height: 600px;
+  height: 500px;
   width:500px;
 }
 #frame{
