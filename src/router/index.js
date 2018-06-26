@@ -14,6 +14,8 @@ const filmInfoSeatPage = (resolve) => require(['../pages/FilmInfo/childrens/Seat
 const loginPage = (resolve) => require(['../pages/Login'], resolve);
 
 const signupPage = (resolve) => require(['../pages/Signup'], resolve);
+
+const cinemaPage = (resolve) => require(['../pages/Cinema'], resolve);
 export default new VueRouter({
   routes: [
     {
@@ -46,6 +48,10 @@ export default new VueRouter({
     {
       path: '/signup',
       component: signupPage
+    },
+    {
+      path: '/cinema',
+      component: cinemaPage
     }
   ],
   scrollBehavior (to, from, savedPosition) {
