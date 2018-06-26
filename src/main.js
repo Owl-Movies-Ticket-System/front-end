@@ -11,7 +11,10 @@ import axios from 'axios';
 Vue.config.productionTip = false;
 
 Vue.prototype.$http = axios.create({
-  timeout: 1000
+  baseURL: '/api',
+  headers: {
+    'Content-Type': 'application/json'
+  }
 });
 
 /* eslint-disable no-new */

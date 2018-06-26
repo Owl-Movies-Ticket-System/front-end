@@ -68,6 +68,7 @@ export default {
   position: relative;
 }
 .btn{
+    outline: none;
     border-width: 1px;
     width: 130px;
     height: 40px;

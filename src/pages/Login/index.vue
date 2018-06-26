@@ -7,9 +7,9 @@
         <img id="avatar_img" class="img " src="@/assets/login_page/login_avatar.png" alt="circle">
       </div>
       <div id="input_list" class="input">
-          <input class="input username" type="text" name="username" placeholder="用户名/邮箱/手机号">
-          <input class="input password" type="passeword" name="password" placeholder="密码">
-          <input id="login" class="btn " type="submit" value="登陆">
+          <input class="input username" type="text" name="username" v-model="phone_number" placeholder="用户名/邮箱/手机号">
+          <input class="input password" type="password" name="password" v-model="password" placeholder="密码">
+          <input id="login" class="btn " type="submit" v-on:click="login" value="登陆">
       </div>
       <router-link id="register" to="/signup" >立即注册</router-link>
     </div>
@@ -18,10 +18,24 @@
 
 <script>
 export default {
+/* eslint-disable */
   data () {
     return {
-
+      phone_number: '',
+      password: ''
     };
+  },
+  methods: {
+    async login (event) {
+      event.preventDefault();
+      const { phone_number, password } = this;
+      const {data} = await this.$http.post('/login', {// eslint-disable-next-line
+        phone_number,
+        password
+      });
+      this.$root.token = data.authorization;
+      this.$router.replace('/');
+    }
   }
 };
 </script>
@@ -50,6 +64,7 @@ export default {
   position: absolute;
 }
 .btn{
+  outline: none;
     border-width: 1px;
     position: absolute;
     left: -3%;
