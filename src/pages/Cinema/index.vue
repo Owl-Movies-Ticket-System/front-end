@@ -2,7 +2,7 @@
     <div class="cinema">
         <div class="area">
             <span>区域：</span>
-            <button class="btn">番禺区</button>
+            <button class="btn" v-on:click="chooseArea">番禺区</button>
             <button class="btn">天河区</button>
             <button class="btn">黄浦区</button>
             <button class="btn">白云区</button>
@@ -16,7 +16,8 @@
                 :imgSrc="item.src"
                 :active="true"
                 :title="item.title"
-                :location="item.location">
+                :location="item.location"
+                v-show="true">
                 </cinema-item>
             </ul>
         </div>
@@ -49,6 +50,8 @@ export default {
         }
       ]
     };
+  },
+  methods: {
   }
 };
 </script>

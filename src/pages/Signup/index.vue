@@ -23,6 +23,7 @@
 <style scoped>
 .login {
   position: relative;
+  top:100px;
 }
 
 #frame_img{
@@ -31,7 +32,7 @@
 }
 #frame{
   position: absolute;
-  left: 22%;
+  left: 36.5%;
   top: 20%;
 }
 #circle{
@@ -79,7 +80,7 @@
 #login{
   position: absolute;
     left: 396px;
-    top: 78%;
+    top: 86%;
     color: #E87C78
 }
 .cellphone{
@@ -118,7 +119,7 @@
 #confirmNumberBtn{
     position: absolute;
     left: 63%;
-    top: 65.6%;
+    top: 70.6%;
     width: 73px;
 }
 </style>
