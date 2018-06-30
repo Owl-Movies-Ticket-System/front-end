@@ -1,9 +1,9 @@
 <template>
   <div class="onLine" >
-    <div id="released" class="btn" v-on:click="released=true">
+    <div id="released" class="btn" v-on:click="getAllMovies" >
       <a ><span class="text">正在热映</span></a>
     </div>
-    <div id="toBeReleased" class="btn" v-on:click="released=false">
+    <div id="toBeReleased" class="btn" v-on:click="getAllToBeReleasedMovies">
       <a ><span class="text">即将上映</span></a>
     </div>
     <div class="film-list">
@@ -33,6 +33,14 @@ export default {
   components: {
     FilmItem
   },
+  // created () {
+  //   try {
+  //     const {data} = this.$http.post('/movie/all');
+  //     console.log(data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   };
+  // },
   data () {
     return {
       released_list: [
@@ -57,6 +65,36 @@ export default {
       ],
       released: true
     };
+  },
+  methods: {
+    async getAllMovies (event) {
+      this.released = true;
+      var jb = 'jbjb';
+      var {data} = await this.$http.post('/movie/all', {
+        name: jb
+      }, {
+        headers: {
+          author: this.$root.token
+        }
+      });
+      data = data.replace(/'/g, '"');
+      data = data.replace(/\{/g, ',{');
+      data = data.substring(1, data.length);
+      data = '[' + data + ']';
+      data = JSON.parse(data);
+      this.released_list=[];
+      console.log(data[0]);
+      for (var x=0;x<data.length;x++){
+        var movie=data[x];
+        this.released_list.push({
+          src: 'http://123.207.55.27:8080/api/img?img='+movie['poster'],
+          name: movie['name']
+        })
+      }
+    },
+    async getAllToBeReleasedMovies (event) {
+      this.released = false;
+    }
   }
 };
 </script>

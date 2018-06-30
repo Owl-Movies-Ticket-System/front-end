@@ -33,7 +33,14 @@ export default {
         phone_number,
         password
       });
+      if (data.result !== 'ok') {
+        alert(data.result);
+        return;
+      }
+      console.log(data);
       this.$root.token = data.authorization;
+      this.$root.phone_number=data.phone_number;
+      this.$root.ifLogin=true;
       this.$router.replace('/');
     }
   }
@@ -42,7 +49,7 @@ export default {
 <style scoped>
 #frame{
   position: absolute;
-  left: 22%;
+  left: 35%;
   top: 20%;
 }
 #circle{

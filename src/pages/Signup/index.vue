@@ -7,18 +7,71 @@
         <img id="avatar_img" class="img " src="@/assets/login_page/login_avatar.png" alt="circle">
       </div>
       <div id="input_list" class="input">
-          <input class="input cellphone" type="text" name="cellphone" placeholder="手机号">
-          <input class="input username" type="text" name="username" placeholder="用户名">
-          <input class="input password" type="passeword" name="password" placeholder="密码">
-          <input class="input confirmedPassword" type="passeword" name="confirmedPassword" placeholder="确认密码">
-          <input class="input confirmNumber" type="number" name="confirmedNumber" placeholder="验证码">
-          <input id="register" class="btn " type="submit" value="注册">
+          <input class="input cellphone" type="text" name="cellphone" v-model="phone_number" placeholder="手机号">
+          <input class="input username" type="text" name="username" v-model="nickname" placeholder="用户名">
+          <input class="input password" type="password" name="password" v-model="password" placeholder="密码">
+          <input class="input confirmedPassword" type="password" v-model="confirmedPassword" name="confirmedPassword" placeholder="确认密码">
+          <!-- <input class="input confirmNumber" type="number" name="confirmedNumber" placeholder="验证码"> -->
+          <input id="register" class="btn " type="submit" v-on:click="register" value="注册">
       </div>
-      <button id="confirmNumberBtn" class="btn ">获取验证码</button>
+      <!-- <button id="confirmNumberBtn" class="btn ">获取验证码</button> -->
       <router-link id="login" to="/login">立即登陆</router-link>
     </div>
   </div>
 </template>
+
+<script>
+// import axios from '../axios';
+export default {
+  data () {
+    return {
+      'phone_number': null,
+      'password': null,
+      'nickname': null,
+      'sex': 'male',
+      'birth': '1996-10-05',
+      'confirmedPassword': null
+    };
+  },
+  methods: {
+    async register (event) {
+    //  event.preventDefault();
+      const {phone_number, password, nickname, sex, birth } = this;
+      if (this.password == null) {
+        alert('密码不能为空');
+        return;
+      } else if (this.confirmedPassword !== this.password) {
+        alert('密码不匹配');
+        return;
+      } else if (this.nickname == null) {
+        alert('户名不能为空');
+        return;
+      } else if (this.phone_number == null) {
+        alert('手机号不能为空');
+        return;
+      }
+      try {
+        // const {data} = await axios.post('/logup', {// eslint-disable-next-line
+        const {data} = await this.$http.post('/logup', {// eslint-disable-next-line
+          phone_number,
+          password,
+          nickname,
+          sex,
+          birth
+        });
+        if (data.result !== 'ok') {
+          alert(data.result);
+          return;
+        }
+        
+      } catch (err) {
+        console.log(err);
+      }
+      this.$router.replace('/login');
+    }
+  }
+};
+</script>
 
 <style scoped>
 .login {
@@ -54,6 +107,8 @@
   position: absolute;
 }
 .btn{
+    border: none;
+    outline: none;
     border-width: 1px;
     position: absolute;
     left: -3%;
@@ -73,6 +128,7 @@
 }
 .btn:hover{
   color:white;
+  outline: none;
   border:none;
   background-color: #E87C78
 }
