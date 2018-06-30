@@ -82,18 +82,40 @@ export default {
       data = data.substring(1, data.length);
       data = '[' + data + ']';
       data = JSON.parse(data);
-      this.released_list=[];
-      console.log(data[0]);
-      for (var x=0;x<data.length;x++){
-        var movie=data[x];
+      this.released_list = [];
+      console.log(data);
+      for (var x = 0; x < data.length; x++) {
+        var movie = data[x];
         this.released_list.push({
-          src: 'http://123.207.55.27:8080/api/img?img='+movie['poster'],
+          src: 'http://123.207.55.27:8080/api/img?img=' + movie['poster'],
           name: movie['name']
-        })
+        });
       }
     },
     async getAllToBeReleasedMovies (event) {
       this.released = false;
+      var jb = 'jbjb';
+      var {data} = await this.$http.post('/movie/all', {
+        name: jb
+      }, {
+        headers: {
+          author: this.$root.token
+        }
+      });
+      data = data.replace(/'/g, '"');
+      data = data.replace(/\{/g, ',{');
+      data = data.substring(1, data.length);
+      data = '[' + data + ']';
+      data = JSON.parse(data);
+      this.toBeReleased_list = [];
+      console.log(data);
+      for (var x = 0; x < 2; x++) {
+        var movie = data[x];
+        this.toBeReleased_list.push({
+          src: 'http://123.207.55.27:8080/api/img?img=' + movie['poster'],
+          name: movie['name']
+        });
+      }
     }
   }
 };

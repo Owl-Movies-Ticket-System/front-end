@@ -32,23 +32,6 @@ export default {
   },
   data () {
     return {
-      cinema_list: [
-        {
-          src: require('@/assets/cinema_page/dadi.jpg'),
-          title: '金逸影城IMAX（光美番禺沙湾店）',
-          location: '地址： 番禺区沙湾镇西环路1502号荔园新天地3楼'
-        },
-        {
-          src: require('@/assets/cinema_page/fanyang.jpeg'),
-          title: '大地影院-番禺大石店',
-          location: '地址： 番禺区大石朝阳西路29号大石城5楼'
-        },
-        {
-          src: require('@/assets/cinema_page/jinyi.jpeg'),
-          title: '金逸影城IMAX（天河店）',
-          location: '地址： 天河区正佳广场6楼'
-        }
-      ],
       currentCinemaList: [
         {
           src: require('@/assets/cinema_page/dadi.jpg'),
@@ -89,49 +72,30 @@ export default {
       areaName= areaName.substring(0,2);
       console.log(areaName);
       this.currentCinemaList = [];
-      // this.currentCinemaList = this.cinema_list.filter(
-      //   function (item) {
-      //     return item.location.match(areaName);
-      //   }
-      // );
-      var englishName = this.switchName(areaName);
-      console.log(englishName);
-      const {data} = await this.$http.post('cinema/search',{
+      var {data} = await this.$http.post('cinema/search',{
           'district': areaName
         }, {
           headers: {
             author: this.$root.token
           }
       });
-      console.log({data});
-      // for (var x=0;x<data.length;x++){
-      //   var movie=data[x];
-      //   this.currentCinemaList.push({
-      //     src: 'http://123.207.55.27:8080/api/img?img='+movie['photo'],
-      //     name: movie['name']
-      //   })
-      // }
-
-    },
-    switchName (chineseName){
-      if (chineseName == '番禺区') {
-        return 'PanYu District';
-      } else if (chineseName == '天河区') {
-        return 'PanYu District';
-      } else if (chineseName == '黄埔区') {
-        return 'HuangPu District';
-      } else if (chineseName == '白云区') {
-        return 'BaiYun District';
-      } else if (chineseName == '荔湾区') {
-        return 'LiWan District';
-      } else if (chineseName == '花都区') {
-        return 'HuaDu District';
-      } else if (chineseName == '南沙区') {
-        return 'NanSha District';
+      data = data.replace(/'/g, '"');
+      data = data.replace(/\{/g, ',{');
+      data = data.substring(1, data.length);
+      data = '[' + data + ']';
+      data = JSON.parse(data);
+      for (var x=0;x<data.length;x++){
+        var cinema=data[1];
+        console.log(cinema);
+        this.currentCinemaList.push({
+          src: 'http://123.207.55.27:8080/api/img?img='+cinema['photo'],
+          title: cinema['name'],
+          location: cinema['location']
+        })
       }
-    }
+    },
   }
-}
+};
 </script>
 
 <style scoped>
