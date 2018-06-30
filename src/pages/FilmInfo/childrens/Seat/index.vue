@@ -82,8 +82,7 @@ export default {
   methods: {
     chooseSeat (row, col) {
       const status = this.seats[row][col];
-      if (status === 'bought') return;
-      else if (status === 'selected') {
+      if (status === 'selected') {
         this.seats[row].splice(col, 1, 'active');
         this.seatIndex = [-1, -1];
       } else {
@@ -99,7 +98,7 @@ export default {
         return;
       }
       const author = this.$root.token;
-      const {data} = await this.$http.post('/ticket/post', {
+      await this.$http.post('/ticket/post', {
         movie_id: this.$route.params.movie_id,
         cinema_id: this.$route.params.cinema_id,
         stage: this.time,

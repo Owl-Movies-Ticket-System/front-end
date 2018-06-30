@@ -29,11 +29,7 @@ export default {
   },
   methods: {
     onClick () {
-      if (this.active) {
-        // 购票
-      } else {
-        // 查看详情
-      }
+      this.$emit('onClick');
     },
     clickPoster () {
       this.$emit('onClick');
