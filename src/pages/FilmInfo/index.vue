@@ -18,21 +18,24 @@
 
 <script>
 export default {
+  async created () {
+    const author = this.$root.token;
+    let {data} = await this.$http.post('/movie/search', {
+      author,
+      name: this.$route.params.name
+    }, {
+      headers: {author}
+    });
+    data = data.replace(/"/g, '');
+    data = data.replace(/'/g, '"');
+    data = JSON.parse(data);
+    this.movie = Object.assign({}, data, {src: `${this.$root.imgBase}/img?img=${data.poster}`});
+  },
   data () {
     return {
-      movie: {
-        name: '雨果',
-        src: require('@/assets/Hugo.png'),
-        director: 'abc',
-        actors: 'a, b, c, d',
-        type: '科幻',
-        area: '法国',
-        language: '英语',
-        length: '120分钟',
-        plot: 'blablabla'
-      },
+      movie: {},
       details: ['导演', '主演', '类型', '制片国家/地区', '语言', '片长', '剧情介绍'],
-      movieProps: ['director', 'actors', 'type', 'area', 'language', 'length', 'plot']
+      movieProps: ['director', 'protagonist', 'types', 'area', 'language', 'len', 'introduction']
     };
   }
 };

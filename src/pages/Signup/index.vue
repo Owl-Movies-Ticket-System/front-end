@@ -7,18 +7,41 @@
         <img id="avatar_img" class="img " src="@/assets/login_page/login_avatar.png" alt="circle">
       </div>
       <div id="input_list" class="input">
-          <input class="input cellphone" type="text" name="cellphone" placeholder="手机号">
-          <input class="input username" type="text" name="username" placeholder="用户名">
-          <input class="input password" type="passeword" name="password" placeholder="密码">
-          <input class="input confirmedPassword" type="passeword" name="confirmedPassword" placeholder="确认密码">
-          <input class="input confirmNumber" type="number" name="confirmedNumber" placeholder="验证码">
-          <input id="register" class="btn " type="submit" value="注册">
+          <input class="input cellphone" type="text" name="cellphone" placeholder="手机号" v-model="phoneNumber">
+          <input class="input username" type="text" name="username" placeholder="用户名" v-model="nickname">
+          <input class="input password" type="password" name="password" placeholder="密码" v-model="password">
+          <input class="input confirmedPassword" type="password" name="confirmedPassword" placeholder="确认密码">
+          <input id="register" class="btn " type="submit" value="注册" @click="regist">
       </div>
-      <button id="confirmNumberBtn" class="btn ">获取验证码</button>
       <router-link id="login" to="/login">立即登陆</router-link>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data () {
+    return {
+      phoneNumber: '',
+      nickname: '',
+      password: ''
+    };
+  },
+  methods: {
+    async regist () {
+      const {phoneNumber, nickname, password} = this;
+      await this.$http.post('/logup', {
+        phone_number: phoneNumber,
+        nickname,
+        password,
+        sex: '女装大佬',
+        birth: '2000-04-12'
+      });
+      this.$router.replace('/login');
+    }
+  }
+};
+</script>
 
 <style scoped>
 .login {

@@ -32,7 +32,8 @@
             v-for="(item, index) in active_list" :key="index"
             :imgSrc="item.src"
             :active="true"
-            :imgName="item.name">
+            :imgName="item.name"
+            @onClick="onFilmItemClick(item)">
           </film-item>
         </ul>
         <div class="film-header">
@@ -46,7 +47,8 @@
             v-for="(item, index) in inactive_list" :key="index"
             :imgSrc="item.src"
             :active="false"
-            :imgName="item.name">
+            :imgName="item.name"
+            @onClick="onFilmItemClick(item)">
           </film-item>
         </ul>
       </div>
@@ -64,50 +66,40 @@ export default {
     CarouselItem,
     FilmItem
   },
+  async created () {
+    const author = this.$root.token;
+    if (!author) return;
+    let { data } = await this.$http.post('/movie/all', {
+      author,
+      name: 'hahaha'
+    }, {
+      headers: {author}
+    });
+    data = data.replace(/'/g, '"');
+    data = data.replace(/\{/g, ',{');
+    data = data.substring(1);
+    data = '[' + data + ']';
+    data = JSON.parse(data);
+    this.active_list = data.map(item => {
+      return Object.assign({}, item, {src: `${this.$root.imgBase}/img?img=${item.poster}`});
+    });
+    this.inactive_list = data.map(item => {
+      return Object.assign({}, item, {src: `${this.$root.imgBase}/img?img=${item.poster}`});
+    });
+  },
   data () {
     return {
-      active_list: [
-        {
-          src: require('@/assets/Hugo.png'),
-          name: 'Hugo'
-        },
-        {
-          src: require('@/assets/Thor.png'),
-          name: 'Thor'
-        },
-        {
-          src: require('@/assets/Warcraft.png'),
-          name: 'Warcraft'
-        },
-        {
-          src: require('@/assets/Penguins.png'),
-          name: 'march-of-the-penguins'
-        }
-      ],
-      inactive_list: [
-        {
-          src: require('@/assets/Hugo.png'),
-          name: 'Hugo'
-        },
-        {
-          src: require('@/assets/Thor.png'),
-          name: 'Thor'
-        },
-        {
-          src: require('@/assets/Warcraft.png'),
-          name: 'Warcraft'
-        },
-        {
-          src: require('@/assets/Penguins.png'),
-          name: 'march-of-the-penguins'
-        }
-      ]
+      active_list: [],
+      inactive_list: []
     };
   },
   methods: {
     box_office_click (filmname) {
       // 点击票房排行中的电影项
       this.$router.push(`/film-info/${filmname}`);
+    },
+    onFilmItemClick (item) {
+      this.$router.push(`/film-info/${item.name}`);
     }
   }
 };

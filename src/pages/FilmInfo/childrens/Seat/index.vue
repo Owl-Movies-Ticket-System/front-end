@@ -3,11 +3,11 @@
     <div class="seat-graph">
       <div class="screen">大屏幕</div>
       <div class="seats">
-        <div class="seats-row flex-container" v-for="(_, rowIndex) in Array(row)" :key="`row${rowIndex}`">
+        <div class="seats-row flex-container" v-for="(row, rowIndex) in seats" :key="`row${rowIndex}`">
           <img
-            v-for="(__, colIndex) in Array(column)"
+            v-for="(col, colIndex) in row"
             :key="`${rowIndex}_${colIndex}`"
-            :src="seatIndex[0] === rowIndex && seatIndex[1] === colIndex? seatActive : seat"
+            :src="col === 'selected' || col === 'bought' ? seatActive : seat"
             class="seat-img pointer"
             @click.stop="chooseSeat(rowIndex, colIndex)"/>
         </div>
@@ -22,11 +22,11 @@
         </div>
         <div class="seat-detail-item flex-container">
           <div class="seat-detail-item-header">座位排数</div>
-          <div class="seat-detail-item-content">{{row}}排</div>
+          <div class="seat-detail-item-content">{{seats.length}}排</div>
         </div>
         <div class="seat-detail-item flex-container">
           <div class="seat-detail-item-header">座位列数</div>
-          <div class="seat-detail-item-content">{{column}}列</div>
+          <div class="seat-detail-item-content">{{seats[0].length}}列</div>
         </div>
       </div>
       <div class=" block-center buy-ticket-button pointer" @click="buyTicket">买票</div>
@@ -45,13 +45,35 @@ import seat from '@/assets/seat.png';
 import seatActive from '@/assets/seat_active.png';
 
 export default {
-  created () {
+  async created () {
     this.time = this.$route.query.time;
+    const author = this.$root.token;
+    let {data} = await this.$http.post('/ticket/seat', {
+      movie_id: this.$route.params.movie_id,
+      cinema_id: this.$route.params.cinema_id,
+      stage: this.time
+    }, {
+      headers: {author}
+    });
+    if (data) {
+      data = data.replace(/\(/g, ',[');
+      data = data.replace(/\)/g, ']');
+      data = data.substring(1);
+      data = '[' + data + ']';
+      data = JSON.parse(data);
+      for (let i = 0; i < data.length; i++) {
+        const [row, col] = data[i];
+        this.seats[row].splice(col, 1, 'bought');
+      }
+    }
   },
   data () {
+    const seats = [[], [], [], [], [], []];
+    for (let i = 0; i < seats.length; i++) {
+      for (let j = 0; j < 8; j++) seats[i].push('active');
+    }
     return {
-      row: 6,
-      column: 8,
+      seats,
       seat,
       seatActive,
       seatIndex: [-1, -1]
@@ -59,17 +81,36 @@ export default {
   },
   methods: {
     chooseSeat (row, col) {
-      const seatIndex = this.seatIndex;
-      if (seatIndex[0] === row && seatIndex[1] === col) {
-        seatIndex.splice(0, 1, -1);
-        seatIndex.splice(1, 1, -1);
+      const status = this.seats[row][col];
+      if (status === 'bought') return;
+      else if (status === 'selected') {
+        this.seats[row].splice(col, 1, 'active');
+        this.seatIndex = [-1, -1];
+      } else {
+        this.seats[row].splice(col, 1, 'selected');
+        this.seatIndex = [row, col];
+      }
+    },
+    async buyTicket () {
+      // 买票
+      const [row, col] = this.seatIndex;
+      if (row === -1 || col === -1) {
+        alert('未选择座位！');
         return;
       }
-      seatIndex.splice(0, 1, row);
-      seatIndex.splice(1, 1, col);
-    },
-    buyTicket () {
-      // 买票
+      const author = this.$root.token;
+      const {data} = await this.$http.post('/ticket/post', {
+        movie_id: this.$route.params.movie_id,
+        cinema_id: this.$route.params.cinema_id,
+        stage: this.time,
+        seat_row: row,
+        seat_col: col,
+        phone_num: '123456789'
+      }, {
+        headers: {author}
+      });
+      alert('购票成功！');
+      this.seats[row].splice(col, 1, 'bought');
     }
   }
 };

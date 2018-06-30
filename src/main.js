@@ -22,5 +22,10 @@ new Vue({
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  created () {
+    this.imgBase = 'http://123.207.55.27:8080/api';
+    const token = localStorage.getItem('token');
+    if (token) this.token = token;
+  }
 });

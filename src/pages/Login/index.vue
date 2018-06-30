@@ -7,7 +7,7 @@
         <img id="avatar_img" class="img " src="@/assets/login_page/login_avatar.png" alt="circle">
       </div>
       <div id="input_list" class="input">
-          <input class="input username" type="text" name="username" v-model="phone_number" placeholder="用户名/邮箱/手机号">
+          <input class="input username" type="text" name="username" v-model="phoneNumber" placeholder="用户名/邮箱/手机号">
           <input class="input password" type="password" name="password" v-model="password" placeholder="密码">
           <input id="login" class="btn " type="submit" v-on:click="login" value="登陆">
       </div>
@@ -21,18 +21,19 @@ export default {
 /* eslint-disable */
   data () {
     return {
-      phone_number: '',
+      phoneNumber: '',
       password: ''
     };
   },
   methods: {
     async login (event) {
       event.preventDefault();
-      const { phone_number, password } = this;
+      const { phoneNumber, password } = this;
       const {data} = await this.$http.post('/login', {// eslint-disable-next-line
-        phone_number,
+        phone_number: phoneNumber,
         password
       });
+      localStorage.setItem('token', data.authorization);
       this.$root.token = data.authorization;
       this.$router.replace('/');
     }
