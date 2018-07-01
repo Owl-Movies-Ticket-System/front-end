@@ -23,7 +23,7 @@
             v-for="time in item.timeRanges"
             :key="item.name + time"
             class="time-range pointer"
-            @click="chooseTime(time)">
+            @click="chooseTime(time, item.id)">
             {{time}}
           </div>
         </div>
@@ -34,35 +34,79 @@
 
 <script>
 import CinemaButton from '@/components/Button';
-
+import {cinemasId, district} from '@/field';
 export default {
   components: {
     CinemaButton
   },
   props: ['name'],
+  async created () {
+    const author = this.$root.token;
+    let {data} = await this.$http.post('/movie/search', {
+      author,
+      name: this.$route.params.name
+    }, {
+      headers: {author}
+    });
+    data = data.replace(/"/g, '');
+    data = data.replace(/'/g, '"');
+    data = JSON.parse(data);
+    this.id = data.id;
+    for (let key of district) {
+      let {data} = await this.$http.post('/cinema/search', {
+        district: key
+      }, {
+        headers: {author}
+      });
+      if (data) {
+        data = data.replace(/'/g, '"');
+        data = data.replace(/\{/g, ',{');
+        data = data.substring(1);
+        data = `[${data}]`;
+        data = JSON.parse(data);
+        for (let i = 0; i < data.length; i++) data[i].timeRanges = [];
+        this.cinemas = this.cinemas.concat(data);
+      }
+    }
+    for (let id of cinemasId) {
+      let {data} = await this.$http.post('/cinema/available_movies', {
+        id
+      }, {
+        headers: {author}
+      });
+      data = data.replace(/'/g, '"');
+      data = JSON.parse(data);
+      if (data.movie_id.toString() === this.id.toString()) {
+        for (let i = 0; i < this.cinemas.length; i++) {
+          if (this.cinemas[i].id === id) {
+            this.cinemas[i].timeRanges.push(data.stage);
+          }
+        }
+      }
+    }
+  },
   data () {
     return {
       areas: ['番禺区', '天河区', '黄浦区', '白云区', '荔湾区', '花都区', '南沙区'],
-      cinemas: [
-        {
-          name: 'abc',
-          timeRanges: ['11:40', '13:00', '14:20', '15:10', '16:05', '17:00', '17:55', '19:15']
-        },
-        {
-          name: 'def',
-          timeRanges: ['11:40', '13:00', '14:20', '15:10']
-        }
-      ]
+      cinemas: []
     };
   },
   methods: {
     chooseArea () {
       // 选择影院地区
     },
-    chooseTime (time) {
+    chooseTime (time, cinemaId) {
+      this.selectCinema = cinemaId;
       const path = this.$route.path;
       this.$router.push({path: `${path}/seat`, query: {time}});
     }
+  },
+  beforeRouteLeave (to, from, next) {
+    if (to.path.includes('seat')) {
+      to.params.movie_id = this.id;
+      to.params.cinema_id = this.selectCinema;
+    }
+    next();
   }
 };
 </script>
@@ -103,6 +147,7 @@ export default {
   background-color: #F2B7B5;
   flex-basis: 180px;
   position: relative;
+  min-height: 50px;
 }
 
 .cinema-name {
