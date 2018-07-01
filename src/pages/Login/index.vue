@@ -33,14 +33,11 @@ export default {
         phone_number: phoneNumber,
         password
       });
-<<<<<<< HEAD
       if (data.result !== 'ok') {
         alert(data.result);
         return;
       }
       console.log(data);
-=======
->>>>>>> db806122252c47dfb29c9baebfb532d4ba27cbf0
       localStorage.setItem('token', data.authorization);
       this.$root.token = data.authorization;
       this.$root.phone_number=data.phone_number;

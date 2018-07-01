@@ -7,7 +7,6 @@
         <img id="avatar_img" class="img " src="@/assets/login_page/login_avatar.png" alt="circle">
       </div>
       <div id="input_list" class="input">
-<<<<<<< HEAD
           <input class="input cellphone" type="text" name="cellphone" v-model="phone_number" placeholder="手机号">
           <input class="input username" type="text" name="username" v-model="nickname" placeholder="用户名">
           <input class="input password" type="password" name="password" v-model="password" placeholder="密码">
@@ -16,21 +15,12 @@
           <input id="register" class="btn " type="submit" v-on:click="register" value="注册">
       </div>
       <!-- <button id="confirmNumberBtn" class="btn ">获取验证码</button> -->
-=======
-          <input class="input cellphone" type="text" name="cellphone" placeholder="手机号" v-model="phoneNumber">
-          <input class="input username" type="text" name="username" placeholder="用户名" v-model="nickname">
-          <input class="input password" type="password" name="password" placeholder="密码" v-model="password">
-          <input class="input confirmedPassword" type="password" name="confirmedPassword" placeholder="确认密码">
-          <input id="register" class="btn " type="submit" value="注册" @click="regist">
-      </div>
->>>>>>> db806122252c47dfb29c9baebfb532d4ba27cbf0
       <router-link id="login" to="/login">立即登陆</router-link>
     </div>
   </div>
 </template>
 
 <script>
-<<<<<<< HEAD
 // import axios from '../axios';
 export default {
   data () {
@@ -77,26 +67,6 @@ export default {
       } catch (err) {
         console.log(err);
       }
-=======
-export default {
-  data () {
-    return {
-      phoneNumber: '',
-      nickname: '',
-      password: ''
-    };
-  },
-  methods: {
-    async regist () {
-      const {phoneNumber, nickname, password} = this;
-      await this.$http.post('/logup', {
-        phone_number: phoneNumber,
-        nickname,
-        password,
-        sex: '女装大佬',
-        birth: '2000-04-12'
-      });
->>>>>>> db806122252c47dfb29c9baebfb532d4ba27cbf0
       this.$router.replace('/login');
     }
   }
